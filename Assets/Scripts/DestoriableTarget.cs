@@ -55,6 +55,7 @@ public class DestoriableTarget : MonoBehaviour {
     {
         if (_health <= 0)
         {
+            _health = 0;
             switch(_pawnType)
             {
                 case PawnType.Enemy:
@@ -63,7 +64,10 @@ public class DestoriableTarget : MonoBehaviour {
                     break;
 
                 case PawnType.Player:
-                    StartCoroutine(PlayerDiedAndRestartPlaying());
+                    if (SceneController.instance != null)
+                    {
+                        SceneController.instance.ReplayGame();
+                    }
                     _onDestory.Invoke();
                     break;
             }
@@ -74,12 +78,5 @@ public class DestoriableTarget : MonoBehaviour {
     {
         yield return new WaitForSeconds(_delayDestory);
         Destroy(gameObject);
-    }
-
-    private IEnumerator PlayerDiedAndRestartPlaying()
-    {
-        yield return new WaitForSeconds(2.0f);
-        var playerController = GetComponent<CraftController>();
-        SceneController.instance.ReplayGame();
     }
 }

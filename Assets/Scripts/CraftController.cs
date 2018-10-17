@@ -21,9 +21,14 @@ public class CraftController : MonoBehaviour {
 
         _playerHealth = GetComponent<DestoriableTarget>();
 
+        StartCoroutine(DelayUpdateLifeInfo());
+    }
+
+    public IEnumerator DelayUpdateLifeInfo()
+    {
+        yield return new WaitForSeconds(0.1f);
         var destroyComponent = GetComponent<DestoriableTarget>();
         Messenger<int>.Broadcast(GameEvent.PLAYER_LIFE_CHANGE, destroyComponent.Health);
-
     }
 	
 	// Update is called once per frame
@@ -65,10 +70,10 @@ public class CraftController : MonoBehaviour {
         }
     }
 
-    private void OnGUI()
-    {
-        GUI.TextArea(new Rect(0, 0, 500, 100), "minX = " + SceneController.MinX + "  maxX = " + SceneController.MaxX + "  minY = " + SceneController.MinZ + "  maxY = " + SceneController.MaxZ);
-    }
+    //private void OnGUI()
+    //{
+    //    GUI.TextArea(new Rect(0, 0, 500, 100), "minX = " + SceneController.MinX + "  maxX = " + SceneController.MaxX + "  minY = " + SceneController.MinZ + "  maxY = " + SceneController.MaxZ);
+    //}
 
     public void OnLifeChanged(int rest)
     {

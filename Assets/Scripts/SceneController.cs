@@ -73,6 +73,12 @@ public class SceneController : MonoBehaviour {
 
     public void ReplayGame()
     {
-        SceneManager.LoadScene("SampleScene");
+        StartCoroutine(DelayReplay());
+    }
+
+    private IEnumerator DelayReplay()
+    {
+        yield return null;
+        SceneManager.LoadScene("MainGameScene");
     }
 }

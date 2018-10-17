@@ -20,6 +20,9 @@ public class PlayerLifeText : MonoBehaviour {
 
     public void OnPlayerLifeChanged(int rest)
     {
-        _text.text = "PlayerLife: " + rest;
+        if (_text != null)
+        {
+            _text.text = "PlayerLife: " + rest;
+        }
     }
 }
